@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}")
+    }
+}
+
+plugins {
+    id "org.sonarqube" version "2.7"
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'jacoco'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+
+}
+
+group 'com.engati.livechat-service'
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-data-rest:${spring_boot_version}")
+/*    compile("org.springframework.boot:spring-boot-starter-data-jpa:${spring_boot_version}")
+    compile("org.springframework.boot:spring-boot-starter-jdbc:${spring_boot_version}")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb:${spring_boot_version}")
+    compile("org.mariadb.jdbc:mariadb-java-client:${maria_db_version}")*/
+    compile("net.logstash.logback:logstash-logback-encoder:${logback_version}")
+    compile("org.apache.commons:commons-collections4:${apache_commons_collections_version}")
+    compile("org.projectlombok:lombok:${lombok_version}")
+    compile("io.springfox:springfox-swagger2:${springfox_vesion}")
+    compile("io.springfox:springfox-swagger-ui:${springfox_vesion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${spring_boot_version}")
+    compile("com.squareup.okhttp3:okhttp:${okhttp_version}")
+    compile(group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: "${okhttp_version}")
+    compile(group: 'com.squareup.retrofit2', name: 'retrofit', version: "${retrofit_version}")
+    compile(group: 'com.squareup.retrofit2', name: 'converter-jackson', version: "${retrofit_version}")
+    compile("com.samskivert:jmustache:${samskivert_verison}")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${spring_boot_version}") {
+        exclude(module: 'commons-logging')
+    }
+}
