@@ -1,19 +1,20 @@
 package com.test.interceptor;
 
 import com.test.annotation.Auditable;
+import com.test.dto.RestApiContext;
 import com.test.service.LoggingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
 @Slf4j
-public class CustomInterceptor implements HandlerInterceptor {
+public class CustomInterceptor extends HandlerInterceptorAdapter {
 
   @Autowired
   private LoggingService loggingService;
@@ -27,7 +28,8 @@ public class CustomInterceptor implements HandlerInterceptor {
     final boolean isApiAuditable =
         ((HandlerMethod) handler).getMethod().isAnnotationPresent(Auditable.class);
     if (isApiAuditable) {
-      loggingService.log(request, response);
+      RestApiContext restApiContext = new RestApiContext(request, response);
+      loggingService.log(restApiContext);
     }
   }
 

@@ -1,8 +1,7 @@
 package com.test.service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.test.dto.RestApiContext;
 
 public interface LoggingService {
-  void log(HttpServletRequest request, HttpServletResponse response);
+  void log(RestApiContext restApiContext);
 }
